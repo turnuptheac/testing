@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  bin: 1
+  question: MyString
+  answer: MyString
+  scheduled_time_to_revisit: 2016-11-09 22:35:53
+  times_wrong: 1
+
+two:
+  bin: 1
+  question: MyString
+  answer: MyString
+  scheduled_time_to_revisit: 2016-11-09 22:35:53
+  times_wrong: 1

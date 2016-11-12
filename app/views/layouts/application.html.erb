@@ -7,8 +7,24 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  <body ng-app="flashcardApp">
+   <ui-view></ui-view>
+    <script type="text/ng-template" id="/home.html">
+      <div>
+        {{test}}
 
-  <body>
-    Hello world!
+        <div ng-repeat="flashcard in flashcards">
+          <div>{{ flashcard.question }}</div>
+
+          <div>{{ flashcard.answer }}</div>
+        </div>
+      </div>
+
+      <form ng-submit="addFlashcard()">
+        <input type="text" placeholder="Word" ng-model="question"></input>
+        <input type="text" placeholder="Definition" ng-model="answer"></input>
+        <button type="submit">Create</button>
+      </form>
+    </script>
   </body>
 </html>
