@@ -15,7 +15,7 @@
 class Flashcard < ApplicationRecord
   validates :question, :answer, presence: true
 
-  bin_to_time_interval = [
+  BIN_TO_TIME_INTERVAL = [
     # cards in bin 0 are shown only when no cards are up for review
     nil,
     5.seconds,
@@ -48,26 +48,39 @@ class Flashcard < ApplicationRecord
     update_scheduled_time_to_revisit
   end
 
-  def next_card_to_review
-    # scheduled_time_to_revisit < Now
-    # sort by bin DESC
-    # WHERE times_wrong < 10
+  def self.next_card_to_review(current_time = nil)
+    current_time ||= Time.now
+    ret = self.where(
+        "date(scheduled_time_to_revisit) < ? AND times_wrong < 10",
+        current_time
+      ).
+      order(bin: :desc).
+      take
 
-    # if none, WHERE bin = 0
-    # sort by created ASC
+    if (ret.nil?)
+      self.where(bin: 0).order(created_at: :asc).take
+    end
   end
 
-  def has_future_cards
-    # scheduled_time_to_revisit > Now OR bin = 0 AND times_wrong < 10
+  def self.has_future_cards(current_time = nil)
+    current_time ||= Time.now
+    ret = self.where(
+        "(date(scheduled_time_to_revisit) > ? OR bin = ?) AND times_wrong < 10",
+        current_time,
+        0
+      )
+
+    !ret.nil? && !ret.empty?
   end
 
   def update_scheduled_time_to_revisit
-    # switch bin different cases set scheduled_time_to_revisit to Now + time_interval
     time_interval = get_time_interval_for_bin
     self.scheduled_time_to_revisit = time_interval.nil? ? nil : Time.now + time_interval
   end
+  private :update_scheduled_time_to_revisit
 
   def get_time_interval_for_bin
-    bin_to_time_interval[self.bin]
+    BIN_TO_TIME_INTERVAL[self.bin]
   end
+  private :get_time_interval_for_bin
 end

@@ -11,12 +11,13 @@
    <ui-view></ui-view>
     <script type="text/ng-template" id="/home.html">
       <div>
-        {{test}}
-
         <div ng-repeat="flashcard in flashcards">
-          <div>{{ flashcard.question }}</div>
+          <div>Q: {{ flashcard.question }}</div>
 
-          <div>{{ flashcard.answer }}</div>
+          <div>A: {{ flashcard.answer }}</div>
+          <div>bin: {{ flashcard.bin }}</div>
+          <div>Scheduled for review: {{ flashcard.scheduled_time_to_revisit }}</div>
+          <div>Times wrong: {{ flashcard.times_wrong }}</div>
         </div>
       </div>
 
