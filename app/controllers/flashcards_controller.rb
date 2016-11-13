@@ -14,6 +14,7 @@ class FlashcardsController < ApplicationController
     flashcard = Flashcard.find_by_id(params[:flashcard_id])
     flashcard.mark_correct
     flashcard.save!
+
     render :json => flashcard
   end
 

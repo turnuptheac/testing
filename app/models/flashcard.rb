@@ -49,9 +49,9 @@ class Flashcard < ApplicationRecord
   end
 
   def self.next_card_to_review(current_time = nil)
-    current_time ||= Time.now
+    current_time ||= Time.now.utc
     ret = self.where(
-        "date(scheduled_time_to_revisit) < ? AND times_wrong < 10",
+        "scheduled_time_to_revisit < ? AND times_wrong < 10",
         current_time
       ).
       order(bin: :desc).
@@ -59,14 +59,16 @@ class Flashcard < ApplicationRecord
 
     if (ret.nil?)
       self.where(bin: 0).order(created_at: :asc).take
+    else
+      ret
     end
   end
 
   def self.has_future_cards(current_time = nil)
-    current_time ||= Time.now
+    current_time ||= Time.now.utc
     ret = self.where(
-        "(date(scheduled_time_to_revisit) > ? OR bin = ?) AND times_wrong < 10",
-        current_time,
+        "(scheduled_time_to_revisit > ? OR bin = ?) AND times_wrong < 10",
+        current_time.to_s(:db),
         0
       )
 
