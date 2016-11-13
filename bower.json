@@ -20,5 +20,11 @@
     "bootstrap": "^3.3.7",
     "moment": "^2.16.0",
     "angular-moment": "^1.0.0"
+  },
+  "devDependencies": {
+    "sinon": "^1.17.6",
+    "sinon-1.17.6": "http://sinonjs.org/releases/sinon-1.17.6.js",
+    "jasmine-sinon": "^0.4.0",
+    "angular-mocks": "^1.5.8"
   }
 }

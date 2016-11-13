@@ -40,7 +40,7 @@ function($scope, flashcards) {
         if(!$scope.answer || $scope.answer === '') { return; }
         flashcards.create({
             question: $scope.question,
-            answer: $scope.answer,
+            answer: $scope.answer
         });
         $scope.question = '';
         $scope.answer = '';

@@ -1,24 +1,46 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a flashcard app powered by Rails and Angular.
 
-Things you may want to cover:
+## System dependencies
+postgresql is required. It can be installed with
 
-* Ruby version
+```
+brew install postgresql
+```
+Bower is required, so that you can install browser assets with the following command
 
-* System dependencies
+```
+bower install
+```
 
-* Configuration
+## Database setup
+```
+rake db:create
+rake db:migrate
+```
 
-* Database creation
+## Running the app
+Finally, you can run the server which also serves the client-side code:
+```
+rails server
+```
 
-* Database initialization
+## How to run the test suite
+To run server unit tests, you can run
 
-* How to run the test suite
+```
+rake spec
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+To run JavaScript unit tests in the browser, you can run
 
-* Deployment instructions
+```
+rake jasmine
+```
 
-* ...
+To run JavaScript unit tests headless mode, you can run
+
+```
+rake jasmine:ci
+```
